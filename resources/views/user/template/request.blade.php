@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h4 class="card-title">{{$request->name ?? ''}}</h4>
                         <p class="lead">{{$request->message}}</p>
-                        <p>{{$requests->created_at->format('Y-m-d')}}</p>
+                        <p>{{$request->created_at->format('Y-m-d')}}</p>
                         <a href="#" class="btn btn-primary">Проверить статус</a>
                     </div>
                 </div>

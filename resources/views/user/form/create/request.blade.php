@@ -11,40 +11,60 @@
             <p class="lead"><span class="text-danger">ВНИМАНИЕ!</span> Завяки можно оставлять раз в сутки!</p>
             <form action="{{route('request.store')}}" enctype="multipart/form-data" method="post">
                 @csrf
-                <label for="topic">Тема</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="topic" placeholder="Введите тему">
-
-                <label for="name">Ваше Имя</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="name" placeholder="Введите имя">
-
-                <label class="sr-only" for="email">Ваша Почта</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">@</div>
-                    </div>
-                    <input type="text" class="form-control" id="email" placeholder="Введите свою почту">
+                {{--                        Разделитель обычный input s--}}
+                <div class="form-group">
+                    <label for="subject">Тема</label>
+                    <input type="text" name="subject" placeholder="subject" id="subject" value="{{ old('subject') }}" class="form-control @error('subject') is-invalid @enderror">
+                    @error('subject')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
+                {{--                        Разделитель обычный input e--}}
 
-
-                <label for="message"></label>
-                <textarea class="form-control" name="message" id="message" cols="20" rows="6" placeholder="Введите сообащение"></textarea>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroupFileAddon01">Загрузить</span>
-                    </div>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" for="inputGroupFile01">Открыть папку</label>
-                    </div>
+                {{--                        Разделитель обычный input s--}}
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" name="name" placeholder="name" id="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror">
+                    @error('name')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
+                {{--                        Разделитель обычный input e--}}
 
-                <div class="form-check mb-2 mr-sm-2">
-                    <input class="form-check-input" type="checkbox" id="inlineFormCheck">
-                    <label class="form-check-label" for="inlineFormCheck">
-                        Запомнить меня
-                    </label>
+                {{--                        Разделитель обычный input s--}}
+                <div class="form-group">
+                    <label for="email">Емейл</label>
+                    <input type="email" name="email" placeholder="email" id="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror">
+                    @error('email')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
+                {{--                        Разделитель обычный input e--}}
+
+
+                {{--                        Разделитель обычный textarea s--}}
+                <div class="form-group">
+                    <label for="message">message</label>
+                    <textarea rows="5" class="form-control @error('message') is-invalid @enderror" name="message" placeholder="message" id="message">{{ old('message') }}</textarea>
+                    @error('message')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                {{--                        Разделитель обычный textarea e--}}
+
+                {{--                        Разделитель Фото s--}}
+                <div class="form-group">
+                    <label for="file">Фото</label>
+                    <input type="file" name="file[]" multiple placeholder="Выберите фото" id="file" value="{{ old('file') }}" class="form-control @error('file') is-invalid @enderror">
+                    @error('file.*')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    @error('file')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                {{--                        Разделитель фото e--}}
+
                 <button type="submit" class="btn btn-primary mb-2">Submit</button>
 
             </form>

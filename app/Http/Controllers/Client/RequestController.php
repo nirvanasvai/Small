@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RequestRequest;
+use App\Models\File;
+use App\Services\FileUpload;
 use Illuminate\Http\Request;
 use App\Models\Request as RequestAs;
 
@@ -32,11 +35,18 @@ class RequestController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(RequestRequest $request, FileUpload $files)
     {
-        //
+        $requestAs = (new RequestAs())->createStr($request);
+        if(!empty($request->file('file')))
+        {
+            $arrFiles = $files->path('/public')
+                ->upload($request->file('file'), $requestAs->id);
+            (new File())->createStr($arrFiles);
+        }
+        return redirect()->route('request.index')->with('success', 'Сообщение успешно отправлено');
     }
 
     /**

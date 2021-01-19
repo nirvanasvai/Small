@@ -15,7 +15,7 @@ class CreateRequestsTable extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('topic')->nullable();
+            $table->string('subject')->nullable();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->text('message')->nullable();

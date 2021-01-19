@@ -10,6 +10,18 @@ class Request extends Model
     use HasFactory;
 
     public $fillable = [
-        'topic','name','emil','message','user_id'
+        'subject','name','email','message','user_id'
     ];
+
+    public function createStr($request)
+    {
+        return $this->query()->create([
+           'subject' => $request->input('subject'),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'message' => $request->input('message'),
+            'user_id' => auth()->user()->id,
+        ]);
+    }
+
 }
