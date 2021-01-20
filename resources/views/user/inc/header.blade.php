@@ -10,7 +10,7 @@
                 <a class="nav-link" href="/">Домой <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('request.index')}}">Завявки</a>
+                <a class="nav-link" href="{{route('request.index')}}">Заявки</a>
             </li>
         </ul>
     </div>

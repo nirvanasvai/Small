@@ -11,6 +11,12 @@ use App\Models\Request as RequestAs;
 
 class RequestController extends Controller
 {
+    public function __construct()
+    {
+        // для middleware 'guest' исключить метод 'logout' данного контроллера
+        $this->middleware('checkTimeRepeatMessage')->only('store');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +24,11 @@ class RequestController extends Controller
      */
     public function index()
     {
-        return view('user.template.request', ['requests' => RequestAs::query()->paginate(15)]);
+        return view('user.template.request',
+            [
+                'requests' => RequestAs::query()
+                    ->paginate(15)
+            ]);
     }
 
     /**
@@ -43,21 +53,23 @@ class RequestController extends Controller
         if(!empty($request->file('file')))
         {
             $arrFiles = $files->path('/public')
-                ->upload($request->file('file'), $requestAs->id);
+                    ->upload($request
+                    ->file('file'), $requestAs->id);
             (new File())->createStr($arrFiles);
         }
-        return redirect()->route('request.index')->with('success', 'Сообщение успешно отправлено');
+        return redirect()->route('request.index')
+            ->with('success', 'Сообщение успешно отправлено');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -68,7 +80,7 @@ class RequestController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**

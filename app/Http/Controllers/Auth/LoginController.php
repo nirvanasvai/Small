@@ -41,6 +41,7 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if(Auth::user()->isUser()) return route('request.index');
-
+        if(Auth::user()->isManager()) return route('manager.request.index');
+        return route('main.public');
     }
 }

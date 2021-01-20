@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AnswerRequest;
+use App\Models\Answer;
 use Illuminate\Http\Request;
-use App\Models\Request as RequestAs;
 
-class RequestController extends Controller
+class AnswerController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('manager.form.request', ['requests' => RequestAs::query()->orderByDesc('id')->paginate(15)]);
+        //
     }
 
     /**
@@ -32,27 +33,23 @@ class RequestController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(AnswerRequest $request)
     {
-        //
+        (new Answer)->createAnswer($request);
+        return redirect()->route('manager.request.show', $request->input('request_id'))->with('success', 'Успешно ответили');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return view('manager.form.answer',
-            [
-                'request' => RequestAs::query()
-                    ->with('answers')
-                    ->find($id)
-            ]);
+        //
     }
 
     /**

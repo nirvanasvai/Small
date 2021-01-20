@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
             'login' => 'manager',
             'email' => 'manager@gmail.com',
             'password' => Hash::make('manager'),
-            'access' => 2
+            'role' => 2,
         ]);
     }
 }

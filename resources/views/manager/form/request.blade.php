@@ -1,4 +1,4 @@
-@extends('user.layouts')
+@extends('manager.layouts.app')
 
 @section('title','Главная')
 
@@ -18,22 +18,18 @@
                         <h4 class="card-title">{{$request->name ?? ''}}</h4>
                         <p class="lead">{{$request->message}}</p>
                         <p>{{$request->created_at->format('Y-m-d')}}</p>
-{{--                        <a href="#" class="btn btn-primary">Проверить статус</a>--}}
+                        <p>{{$request->user_id}}</p>
+                        <a href="{{route('manager.request.show',$request->id)}}" class="btn btn-primary">Ответить на Заявку</a>
                     </div>
                 </div>
-
             @empty
                 <div class="card-header">
-                    Пусто
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Вы пока не оставили заявку</h5>
+                    Пусто!
                 </div>
         </div>
         @endforelse
-        <a href="{{ route('request.create') }}" class="btn btn-primary">Оставить заявку</a>
 
-    </div>
+
     </div>
 
 

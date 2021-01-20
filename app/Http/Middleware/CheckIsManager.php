@@ -20,8 +20,7 @@ class CheckIsManager
         $user = Auth::user();
         if(!$user->isManager())
         {
-            session()->flash('Ошибка', 'У вас нет доступа в данный раздел');
-            return redirect()->route('manager');
+            return redirect()->route('main.public')->with('warning', 'У вас нет доступа в данный раздел');
         }
         return $next($request);
     }
